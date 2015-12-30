@@ -13,16 +13,10 @@ export default function (filePath) {
   // API
   let unusedFileChecker = {
     scan: () => {
-      // Initialize response object
-      let returnObject = {
-        unusedFiles: [],
-        errors: []
-      };
-
-      returnObject.unusedFiles = courseFiles.filter(unusedFileChecker._isUnusedFile);
+      let unusedFiles = courseFiles.filter(unusedFileChecker._isUnusedFile);
 
       // Return the final response
-      return returnObject;
+      return unusedFiles;
     },
 
     _isUnusedFile: (file) => {
