@@ -1,7 +1,7 @@
 import test from 'tape';
 import unusedFileChecker from '../src';
 
-test('One or more unused files are found', (assert) => {
+test('One or more unused files are found.', (assert) => {
   assert.plan(1);
 
   let result = unusedFileChecker('test-course.zip').scan();
