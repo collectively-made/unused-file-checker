@@ -1,13 +1,17 @@
-import scanner from 'course-file-scanner';
+import Scanner from 'course-file-scanner';
 
 /**
  * @param {Type}
  * @return {Type}
  */
 export default function (filePath) {
-  let courseFile = scanner(filePath);
+  // Constructor
+  let courseZip = new Scanner(filePath);
+  let courseFiles = courseZip.getCourseFiles();
+  let courseDatFiles = courseZip.getDatFiles();
 
-  return {
+  // API
+  let unusedFileChecker = {
     scan: () => {
       // Initialize response object
       let returnObject = {
@@ -15,8 +19,25 @@ export default function (filePath) {
         errors: []
       };
 
+      returnObject.unusedFiles = courseFiles.filter(unusedFileChecker._isUnusedFile);
+
       // Return the final response
       return returnObject;
+    },
+
+    _isUnusedFile: (file) => {
+      let usedInArray = courseDatFiles.filter((datFile) => {
+        let fileContent = courseZip.getZipObject().readAsText(datFile);
+        return (fileContent.indexOf(file.courseFileId + '_') !== -1);
+      });
+
+      // if (usedInArray.length > 0) console.log(file.courseFileId + ' found in ' + usedInArray.length + ' files.');
+
+      return (usedInArray.length > 0);
     }
+
   };
+
+  // Return API
+  return unusedFileChecker;
 }
