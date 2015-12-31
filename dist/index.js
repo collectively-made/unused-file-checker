@@ -13,10 +13,11 @@ exports.default = function (filePath) {
   // API
   var unusedFileChecker = {
     scan: function scan() {
-      var unusedFiles = courseFiles.filter(unusedFileChecker._isUnusedFile);
-
       // Return the final response
-      return unusedFiles;
+      return new Promise(function (resolve, reject) {
+        var unusedFiles = courseFiles.filter(unusedFileChecker._isUnusedFile);
+        resolve(unusedFiles);
+      });
     },
 
     _isUnusedFile: function _isUnusedFile(file) {
@@ -24,8 +25,6 @@ exports.default = function (filePath) {
         var fileContent = courseZip.getZipObject().readAsText(datFile);
         return fileContent.indexOf(file.courseFileId + '_') !== -1;
       });
-
-      // if (usedInArray.length > 0) console.log(file.courseFileId + ' found in ' + usedInArray.length + ' files.');
 
       return usedInArray.length > 0;
     }
