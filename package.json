@@ -1,6 +1,6 @@
 {
   "name": "unused-file-checker",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Checks for unused file in a Blackboard course file",
   "main": "dist/index.js",
   "files": [
