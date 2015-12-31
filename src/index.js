@@ -26,7 +26,7 @@ export default function (filePath) {
         return (fileContent.indexOf(file.courseFileId + '_') !== -1)
       })
 
-      return (usedInArray.length > 0)
+      return (usedInArray.length < 1)
     }
 
   }
